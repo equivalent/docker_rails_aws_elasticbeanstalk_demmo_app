@@ -1,0 +1,54 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.5.1
+    environment:
+      POSTGRES_PASSWORD: mysecretlocalpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: puppies_app
+  redis:
+    image: redis
+  box:
+    image: busybox
+    volumes:
+      - /box-bundle
+      - /var/run/puppies_app
+      - ./log/:/var/log/puppies_app
+  proxy:
+    image: nginx
+    depends_on:
+      - box
+    volumes_from:
+      - box
+    #volumes:
+      #- ./config/nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - "80:80"
+  puppies_web:
+    build: .
+    environment:
+      RAILS_ENV: development
+      MAX_THREADS: 16    # watch out so you don't run out of DB connection pool
+      WEB_CONCURRENCY: 1 # should match CPU of server
+      SECRET_KEY_BASE: 19d07059ab81ff584bd8fd7be03ed765c63f5f4c3518d05f39b41c7152134e294b2f09cbf5d925045caab0ef6475862fc42c8e6b35d63e353a1472057e90f8c4
+
+      REL_DATABASE_PASSWORD: mysecretlocalpassword
+      REL_DATABASE_USERNAME: postgres
+      REL_DATABASE_DATABASE: puppies_app
+      REL_DATABASE_HOST: db
+      REL_DATABASE_PORT: 5432
+
+      REDIS_PORT_6379_TCP_ADDR: redis
+      REDIS_PORT_6379_TCP_PORT: 6379
+      REDIS_DB_ID: 0 # id of redis db
+    volumes_from:
+      - box
+    volumes:
+      - ./puppies:/app
+    links:
+      - db
+      - redis
+    depends_on:
+      - box
+      - proxy
+
