@@ -1,9 +1,9 @@
 FROM ruby:2.3.1
 
+RUN gem install bundler
+
 RUN mkdir /app
 WORKDIR /app
-
-ENV BUNDLE_PATH /box-bundle
 
 # CMD sleep 9999
 
