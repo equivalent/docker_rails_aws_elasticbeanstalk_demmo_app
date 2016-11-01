@@ -1,0 +1,16 @@
+<h1>Puppies !!!</h1>
+
+<% @puppies.each do |puppy| %>
+  <div class="puppy">
+    <h2><%= puppy.name %></h2>
+    <%= image_tag puppy.url, alt: puppy.name %>
+
+    <div class="likes">
+      Likes: <%= puppy.like_counter.to_i %>
+    </div>
+    <%= link_to like_puppy_path(puppy), method: :post do %>
+      <i class="fa fa-thumbs-up"></i>
+      Like
+    <% end %>
+  </div>
+<% end %>
