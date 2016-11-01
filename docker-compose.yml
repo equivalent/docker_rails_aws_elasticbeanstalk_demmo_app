@@ -12,10 +12,12 @@ services:
     image: nginx
     volumes:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
-      - ./run/puppies-puma-app.sock:/var/run/puppies-puma-app.sock
+      - ./run:/var/run
       - ./puppies/log:/var/log
     ports:
       - "80:80"
+    depends_on:
+      - puppies_web
   puppies_web:
     build: .
     environment:
@@ -30,15 +32,13 @@ services:
       REL_DATABASE_HOST: db
       REL_DATABASE_PORT: 5432
 
-      REDIS_PORT_6379_TCP_ADDR: redis
-      REDIS_PORT_6379_TCP_PORT: 6379
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
       REDIS_DB_ID: 0 # id of redis db
     volumes:
       - ./puppies:/app
       - ./puppies/log:/var/log
-      - ./run/puppies-puma-app.sock:/var/run/puppies-puma-app.sock
+      - ./run:/var/run
     links:
       - db
       - redis
-    depends_on:
-      - proxy
