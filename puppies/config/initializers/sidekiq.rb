@@ -1,3 +1,5 @@
+# there is also config/sidekiq.yml including some other options
+
 Sidekiq.logger = Rails.logger
 
 Sidekiq.configure_server do |config|

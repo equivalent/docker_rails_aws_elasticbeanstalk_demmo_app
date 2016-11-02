@@ -1,6 +1,6 @@
 class PuppiesController < ApplicationController
   def index
-    @puppies = Puppy.all
+    @puppies = Puppy.ordered
   end
 
   def like

@@ -6,5 +6,6 @@ class IncreaseLikeCounterJob < ApplicationJob
       .constantize
       .find(resource_id)
       .increment(:like_counter, 1)
+      .save
   end
 end

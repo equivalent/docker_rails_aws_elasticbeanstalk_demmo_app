@@ -20,9 +20,11 @@ services:
       - puppies_web
   puppies_web:
     build: .
-    environment:
+    image: puppies_rails
+    environment: &app_server_enviroment_vars
+      CONTAINER_ROLE: 'app_server'
       RAILS_ENV: development
-      MAX_THREADS: 16    # watch out so you don't run out of DB connection pool
+      MAX_THREADS: 2     # Puma threads,  watch out so you don't run out of DB connection pool
       WEB_CONCURRENCY: 1 # should match CPU of server
       SECRET_KEY_BASE: 19d07059ab81ff584bd8fd7be03ed765c63f5f4c3518d05f39b41c7152134e294b2f09cbf5d925045caab0ef6475862fc42c8e6b35d63e353a1472057e90f8c4
 
@@ -42,3 +44,18 @@ services:
     links:
       - db
       - redis
+  puppies_bg_worker:
+    image: puppies_rails
+    environment:
+      <<: *app_server_enviroment_vars
+      CONTAINER_ROLE: 'bg_worker'
+      MAX_THREADS: 5  # Sidekiq threads,  watch out so you don't run out of DB connection pool
+    volumes:
+      - ./puppies:/app
+      - ./puppies/log:/var/log
+      - ./run:/var/run
+    links:
+      - db
+      - redis
+    depends_on:
+      - puppies_web

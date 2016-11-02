@@ -1,0 +1,8 @@
+---
+:verbose: true
+:concurrency: <%= (ENV['MAX_THREADS'] || 10).to_i %>
+:queues:
+  - ["default", 10]
+
+:logfile: /var/log/<%= ENV['RAILS_ENV'] %>_sidekiq.log
+:pidfile: /var/run/<%= ENV['RAILS_ENV'] %>_sidekiq.pid

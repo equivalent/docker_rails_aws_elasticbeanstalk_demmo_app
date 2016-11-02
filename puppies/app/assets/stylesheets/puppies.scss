@@ -1,3 +1,19 @@
 // Place all the styles related to the puppies controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+body {
+  background-color: pink;
+}
+.puppy {
+  width: 33%;
+  float: left;
+  img {
+    max-width: 400px;
+    max-height: 300px;
+    border: white 2px solid;
+  }
+  a {
+    text-decoration: none;
+    color: red;
+  }
+}
