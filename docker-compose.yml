@@ -14,16 +14,21 @@ services:
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
       - ./run:/var/run
       - ./puppies/log:/var/log
+      - ./puppies/public:/var/www
     ports:
       - "80:80"
     depends_on:
       - puppies_web
   puppies_web:
-    build: .
+    build:
+      context: .
+      # dockerfile: Dockerfile-development  # for development
+      dockerfile: Dockerfile
     image: puppies_rails
     environment: &app_server_enviroment_vars
       CONTAINER_ROLE: 'app_server'
-      RAILS_ENV: development
+      # RAILS_ENV: development              # for development
+      RAILS_ENV: production
       MAX_THREADS: 2     # Puma threads,  watch out so you don't run out of DB connection pool
       WEB_CONCURRENCY: 1 # should match CPU of server
       SECRET_KEY_BASE: 19d07059ab81ff584bd8fd7be03ed765c63f5f4c3518d05f39b41c7152134e294b2f09cbf5d925045caab0ef6475862fc42c8e6b35d63e353a1472057e90f8c4
