@@ -1,0 +1,23 @@
+services:
+  db:
+    image: postgres:9.5.1
+    environment:
+      # ..........
+  redis:
+    image: redis
+  proxy:
+    image: nginx
+  puppies_web:
+    image: puppies_rails
+    environment:
+      # ..........
+    links:
+      - db
+      - redis
+  puppies_bg_worker:
+    image: puppies_rails
+    environment:
+      # ..........
+    links:
+      - db
+      - redis
