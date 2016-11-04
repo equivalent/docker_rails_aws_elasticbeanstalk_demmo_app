@@ -8,6 +8,12 @@
       }
     },
     {
+      "name": "assets_folder",
+      "host": {
+        "sourcePath": "/home/ec2-user/assets"
+      }
+    },
+    {
       "name": "log_folder",
       "host": {
         "sourcePath": "/home/ec2-user/log"
@@ -29,7 +35,11 @@
       "mountPoints": [
         {
           "sourceVolume": "run_folder",
-          "containerPath": "/var/run/"
+          "containerPath": "/var/run"
+        },
+        {
+          "sourceVolume": "assets_folder",
+          "containerPath": "/var/www"
         },
         {
           "sourceVolume": "log_folder",
@@ -45,7 +55,11 @@
       "mountPoints": [
         {
           "sourceVolume": "run_folder",
-          "containerPath": "/var/run/"
+          "containerPath": "/var/run"
+        },
+        {
+          "sourceVolume": "assets_folder",
+          "containerPath": "/app/public"
         },
         {
           "sourceVolume": "log_folder",
