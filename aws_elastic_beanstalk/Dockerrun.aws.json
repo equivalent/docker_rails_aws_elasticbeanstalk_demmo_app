@@ -1,0 +1,117 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [
+    {
+      "name": "run_folder",
+      "host": {
+        "sourcePath": "/home/ec2-user/run"
+      }
+    },
+    {
+      "name": "log_folder",
+      "host": {
+        "sourcePath": "/home/ec2-user/log"
+      }
+    }
+  ],
+  "containerDefinitions": [
+    {
+      "name": "proxy",
+      "image": "equivalent/eb-demo-rails",
+      "essential": true,
+      "memory": 500,
+      "portMappings": [
+        {
+          "hostPort": 80,
+          "containerPort": 80
+        }
+      ],
+      "mountPoints": [
+        {
+          "sourceVolume": "run_folder",
+          "containerPath": "/var/run/"
+        },
+        {
+          "sourceVolume": "log_folder",
+          "containerPath": "/var/log"
+        }
+      ]
+    },
+    {
+      "name": "puppies_web",
+      "image": "equivalent/eb-demo-rails",
+      "essential": true,
+      "memory": 600,
+      "mountPoints": [
+        {
+          "sourceVolume": "run_folder",
+          "containerPath": "/var/run/"
+        },
+        {
+          "sourceVolume": "log_folder",
+          "containerPath": "/var/log"
+        }
+      ],
+      "environment": [
+        {
+          "name": "CONTAINER_ROLE",
+          "value": "app_server"
+        },
+        {
+          "name": "MAX_THREADS",
+          "value": 2
+        },
+        {
+          "name": "WEB_CONCURRENCY",
+          "value": 1
+        },
+        {
+          "name": "RAILS_SERVE_STATIC_FILES",
+          "value": "false"
+        },
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "value": "99999_this_should_be_set_in_ElasticBeanstark_ENV_variable_not_commited_in_git_b35d63e353a1472057e90f8c4"
+        }
+      ]
+    },
+    {
+      "name": "puppies_bg_worker",
+      "image": "equivalent/eb-demo-rails",
+      "essential": true,
+      "memory": 600,
+      "mountPoints": [
+        {
+          "sourceVolume": "run_folder",
+          "containerPath": "/var/run/"
+        },
+        {
+          "sourceVolume": "log_folder",
+          "containerPath": "/var/log"
+        }
+      ],
+      "environment": [
+        {
+          "name": "CONTAINER_ROLE",
+          "value": "bg_worker"
+        },
+        {
+          "name": "MAX_THREADS",
+          "value": 3
+        },
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        },
+        {
+          "name": "SECRET_KEY_BASE",
+          "value": "99999_this_should_be_set_in_ElasticBeanstark_ENV_variable_not_commited_in_git_b35d63e353a1472057e90f8c4"
+        }
+      ]
+    }
+  ]
+}

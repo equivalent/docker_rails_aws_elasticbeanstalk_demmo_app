@@ -6,16 +6,15 @@ RUN gem install bundler
 
 # Preinstall gems. This will ensure that Gem Cache wont drop on code change
 WORKDIR /tmp
-ADD ./puppies/Gemfile Gemfile
-ADD ./puppies/Gemfile.lock Gemfile.lock
+ADD ./Gemfile Gemfile
+ADD ./Gemfile.lock Gemfile.lock
 RUN (bundle check || bundle install --without development test)
 
 RUN mkdir /app
-ADD ./puppies/ /app
+ADD . /app
 WORKDIR /app
 RUN (bundle check || bundle install --without development test)
 
 RUN RAILS_ENV=production rake assets:precompile
 
-ADD ./docker/start_server.sh /usr/local/bin/
-CMD bash /usr/local/bin/start_server.sh
+CMD bash script/start_server.sh

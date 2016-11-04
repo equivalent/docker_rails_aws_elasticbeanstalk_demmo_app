@@ -1,6 +1,10 @@
 class PuppiesController < ApplicationController
   def index
     @puppies = Puppy.ordered
+
+    @cached_message = Rails.cache.fetch 'home-cached-message' do
+      "This text is cached #{rand(1000...9999999999)}"
+    end
   end
 
   def like

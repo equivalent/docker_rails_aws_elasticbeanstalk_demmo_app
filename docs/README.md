@@ -112,8 +112,10 @@ different containers to different VMs.
  Let say you extract your
 Relational Database container to one VM, your Redis container to another
 VM and your keep one VM to the core Application containers.
+You specially need to do this if you dealing with Load Ballanced
+enviroment which we will talk about soon.
 
-Even more if you discover that your Application VM is runnig out of
+You can split this even further  if you discover that your Application VM is runnig out of
 memory or you want introduce more Threads for puma server you can
 extract your worker out to own VM too.
 
@@ -126,12 +128,13 @@ AWS Elastic Beanstalk
 # AWS approach to infrastructure
 
 First we need to understand how AWS look at your infrastructure
-problems. AWS been on the market for quite some time, they introduced
-many products and solutions for pretty much any problem you may have.
+. AWS been on the market for quite some time, they introduced
+many products and solutions for pretty much any problem that
+web-application may have.
 
 I'll just mention some that will be needed for this talk.
 
-I think pretty much everyone worked with S3 at least everyone who was
+I think pretty much everyone worked with S3 simple storage, at least everyone who was
 trying to upload images on a Heroku application.
 
 EC2 is prety much their product for provisioning VMs
@@ -140,10 +143,56 @@ ELB is a loadbalancer product, so basically when you need to distribute
 load between multiple EC2 instances
 
 RDS is their Relational Database Solution, so you can run your Postgres
-database and they will take care of snapshots and recovery 
+database and they will take care of snapshots and recovery Really easy
+straight forward tool to use.
 
 ElasticCache is similar thing like RDS but for Redis or Memcache
-clusters
+clusters.
 
-and CloudWatch is for monitoring of resources
+and CloudWatch is for monitoring of resources.
+
+
+Now you can imagine that instead of of our Postges container we will connect
+our application containers to the Postgres RDS product,
+Instead of Redis container we would connect to ElasticCache Redis
+product.
+
+So that means that all that is left is to  deploy our application, worker and nginx
+container to an EC2 instance.
+
+This kind of separation helps when we need horizontal scaling. If the
+load on our website grow we will introduce more and more EC2 instances
+running our containers. Once the load is over we will discale them. This
+metricks are provided by AWS CloudWatch product.
+
+## AWS Elastic Beanstalk
+
+That finally brings us to definition of what is Elastic Beanstalk. 
+It's is another product of Amazon Web Services, that provides an easy
+way to setup your EC2 instances in Load Balanced enviroment. Think about
+it as a Seftware Wizard were you click next, next, next and you have
+your Environment set up.
+
+As part of that it will configure some basic CloudWatch setup and some basic
+scaling and descaling configuration of instances. For examples you will
+just specify that if the CPU load is bigger than 70% let it introduce
+new instance, if it's lower than 10% remove an EC2 instance.
+
+Elastic Beanstalk also provides a CLI tool. Now I would dare to compare this CLI tool to
+Heroku CLI in a sence that you type just one command `eb deploy` and boom your version
+is deployed, or `eb status` or `eb events` and you see what is happening in your environment.
+but it's definitelly not as much  sophisticated as the Heroku one. I'll talk more
+about it later in the talk.
+
+Worth mentioning is that The Elastic Beanstalk suports not only Docker
+but also native Ruby and lot of other Languages. Now I want to keep this
+talk Docker based as that is the one that I have experiences with 
+this product.
+
+
+## AWS Elastic Beanstalk with Docker
+
+Similar to `docker-composer`'s provisioning from yaml config file, Elastic Beanstalk Docker
+has similar approach based on JSON config file.
+
 
