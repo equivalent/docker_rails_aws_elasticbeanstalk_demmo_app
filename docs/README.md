@@ -38,7 +38,7 @@ brief you can think about Docker image as you would about virtual machine image,
 meaning it's entire stack from Operating System layer till the
 technology you are using.
 
-The difference is that Docker image consist of layers that are based on
+Amongs other, the main difference is that Docker image consist of layers that are based on
 ordered root fylesystem changes and those layers can be cached.
 Therfore you only deploy the top layers that has been changed.
 
@@ -72,9 +72,78 @@ But these solutions are outside the scope of this talk.
 But the core idea is that Docker image is in the  Registry and Server pulls those images.
 
 
+## Linking Docker Containers
+
+Now once you've deployed your docker images you want to lunch them.
+
+Runtime instances of Docker image is called "Docker Container" that's
+why I'll be refering about these boxes as "containers" rather than
+"images"
+
+You want to lunch your instances so that relevant containers
+are linked  to each other.
+
+You can achive this bu using direct `docker run` options:
+
+```
+docker run -d --name puppies_web --link db:db puppies_rails
+```
+
+...but in reality this command gets too long.
+
+Better way is to use `docker-composer` which will basically achive the
+same by loading configuration from YAML   file.
+
+The "linking" will end up setting your `/etc/hosts` with the host
+reference, so all you will have to do in your application is tell it
+that you want to connect to host "db" or host "redis"
+
+In reality there is more then just `link`. You need to set environment
+variables, mount volumes and so on. But this is the basic principal.
+
+
 ## Inside VM
 
-Now once 
+So on your server or VM you will end up with fully linked containers.
+
+But one thing lot of developers missed out is that you can split out
+different containers to different VMs.
+
+ Let say you extract your
+Relational Database container to one VM, your Redis container to another
+VM and your keep one VM to the core Application containers.
+
+Even more if you discover that your Application VM is runnig out of
+memory or you want introduce more Threads for puma server you can
+extract your worker out to own VM too.
 
 
+# AWS approach
+
+Now we finally getting to the part were we start talking about AWS and
+AWS Elastic Beanstalk
+
+# AWS approach to infrastructure
+
+First we need to understand how AWS look at your infrastructure
+problems. AWS been on the market for quite some time, they introduced
+many products and solutions for pretty much any problem you may have.
+
+I'll just mention some that will be needed for this talk.
+
+I think pretty much everyone worked with S3 at least everyone who was
+trying to upload images on a Heroku application.
+
+EC2 is prety much their product for provisioning VMs
+
+ELB is a loadbalancer product, so basically when you need to distribute
+load between multiple EC2 instances
+
+RDS is their Relational Database Solution, so you can run your Postgres
+database and they will take care of snapshots and recovery 
+
+ElasticCache is similar thing like RDS but for Redis or Memcache
+clusters
+
+and CloudWatch is for monitoring of resources
 
