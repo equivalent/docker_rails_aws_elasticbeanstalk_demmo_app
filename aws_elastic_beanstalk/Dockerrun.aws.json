@@ -88,6 +88,18 @@
           "value": "production"
         },
         {
+          "name": "REDIS_HOST",
+          "value": "puppies.qgminx.0001.euw1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": 6379
+        },
+        {
+          "name": "REDIS_DB_ID",
+          "value": 0
+        },
+        {
           "name": "SECRET_KEY_BASE",
           "value": "99999_this_should_be_set_in_ElasticBeanstark_ENV_variable_not_commited_in_git_b35d63e353a1472057e90f8c4"
         }
@@ -120,6 +132,21 @@
         {
           "name": "RAILS_ENV",
           "value": "production"
+        },
+
+ puppies-demo.cverdzyuvijq.eu-west-1.rds.amazonaws.com:5432
+
+        {
+          "name": "REDIS_HOST",
+          "value": "puppies.qgminx.0001.euw1.cache.amazonaws.com"
+        },
+        {
+          "name": "REDIS_PORT",
+          "value": 6379
+        },
+        {
+          "name": "REDIS_DB_ID",
+          "value": 0
         },
         {
           "name": "SECRET_KEY_BASE",
