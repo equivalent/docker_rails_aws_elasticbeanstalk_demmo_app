@@ -23,7 +23,7 @@
   "containerDefinitions": [
     {
       "name": "proxy",
-      "image": "equivalent/eb-demo-rails",
+      "image": "equivalent/eb-demo-nginx:v1",
       "essential": true,
       "memory": 500,
       "portMappings": [
@@ -49,7 +49,7 @@
     },
     {
       "name": "puppies_web",
-      "image": "equivalent/eb-demo-rails",
+      "image": "equivalent/eb-demo-rails:v1",
       "essential": true,
       "memory": 600,
       "mountPoints": [
@@ -127,7 +127,7 @@
     },
     {
       "name": "puppies_bg_worker",
-      "image": "equivalent/eb-demo-rails",
+      "image": "equivalent/eb-demo-rails:v1",
       "essential": true,
       "memory": 600,
       "mountPoints": [

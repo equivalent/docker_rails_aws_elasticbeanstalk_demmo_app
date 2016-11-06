@@ -23,7 +23,11 @@ related files and the Rails project. Normaly I would leave the
 Rails/Rack project.
 
 
- 
+### links
+
+how to install docker
+
+* https://docs.docker.com/engine/installation/linux/ubuntulinux/
 
 
 
