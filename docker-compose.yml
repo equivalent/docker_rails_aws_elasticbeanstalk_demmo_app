@@ -14,7 +14,7 @@ services:
   redis:
     image: redis
   proxy:
-    image: equivalent/eb-demo-nginx
+    image: equivalent/eb-demo-nginx:v1
     build:
       context: ./nginx
       dockerfile: Dockerfile # we mean the ./nginx/Dockerfile
@@ -29,7 +29,7 @@ services:
     depends_on:
       - puppies_web
   puppies_web:
-    image: equivalent/eb-demo-rails
+    image: equivalent/eb-demo-rails:v1
     build:
       context: ./puppies
       dockerfile: Dockerfile # we mean the ./puppies/Dockerfile
@@ -57,7 +57,7 @@ services:
       - db
       - redis
   puppies_bg_worker:
-    image: equivalent/eb-demo-rails
+    image: equivalent/eb-demo-rails:v1
     environment:
       <<: *app_server_enviroment_vars
       CONTAINER_ROLE: 'bg_worker'
