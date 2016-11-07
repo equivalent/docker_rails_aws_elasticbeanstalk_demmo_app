@@ -59,11 +59,11 @@
         },
         {
           "sourceVolume": "assets_folder",
-          "containerPath": "/app/public"
+          "containerPath": "/var/www"
         },
         {
           "sourceVolume": "log_folder",
-          "containerPath": "/var/log"
+          "containerPath": "/app/log"
         }
       ],
       "environment": [
@@ -100,7 +100,7 @@
           "value": 0
         },
         {
-          "name": "REL_DATABASE_DATABASE",
+          "name": "REL_DATABASE_HOST",
           "value": "puppies-demo.cverdzyuvijq.eu-west-1.rds.amazonaws.com"
         },
         {
@@ -137,7 +137,7 @@
         },
         {
           "sourceVolume": "log_folder",
-          "containerPath": "/var/log"
+          "containerPath": "/app/log"
         }
       ],
       "environment": [
@@ -166,7 +166,7 @@
           "value": 0
         },
         {
-          "name": "REL_DATABASE_DATABASE",
+          "name": "REL_DATABASE_HOST",
           "value": "puppies-demo.cverdzyuvijq.eu-west-1.rds.amazonaws.com"
         },
         {

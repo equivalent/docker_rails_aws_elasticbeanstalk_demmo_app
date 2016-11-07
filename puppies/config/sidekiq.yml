@@ -4,5 +4,4 @@
 :queues:
   - ["default", 10]
 
-:logfile: /var/log/<%= ENV['RAILS_ENV'] %>_sidekiq.log
 :pidfile: /var/run/<%= ENV['RAILS_ENV'] %>_sidekiq.pid

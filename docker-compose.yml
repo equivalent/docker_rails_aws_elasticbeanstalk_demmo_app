@@ -50,7 +50,7 @@ services:
       REDIS_PORT: 6379
       REDIS_DB_ID: 0 # id of redis db
     volumes:
-      - ./puppies/log:/var/log
+      - ./puppies/log:/app/log
     volumes_from:
       - sharedbox
     links:
@@ -63,8 +63,7 @@ services:
       CONTAINER_ROLE: 'bg_worker'
       MAX_THREADS: 5  # Sidekiq threads,  watch out so you don't run out of DB connection pool
     volumes:
-      #- ./puppies:/app
-      - ./puppies/log:/var/log
+      - ./puppies/log:/app/log
     volumes_from:
       - sharedbox
     links:
