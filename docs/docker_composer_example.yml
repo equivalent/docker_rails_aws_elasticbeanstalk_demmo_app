@@ -8,14 +8,15 @@ services:
   proxy:
     image: nginx
   puppies_web:
-    image: puppies_rails
+    image: equivalent/eb-demo-rails:v1
     environment:
       # ..........
     links:
       - db
       - redis
+      - proxy
   puppies_bg_worker:
-    image: puppies_rails
+    image: equivalent/eb-demo-rails:v1
     environment:
       # ..........
     links:

@@ -1,0 +1,23 @@
+services:
+  proxy:
+    image: nginx
+  puppies_web:
+    image: equivalent/eb-demo-rails:v1
+    environment:
+      REL_DATABASE_HOST: 88.123.456.789
+      REL_DATABASE_PORT: 5432
+      # ..........
+      REDIS_HOST: 83.123.456.789
+      REDIS_PORT: 6379
+      # ..........
+    links:
+      - proxy
+  puppies_bg_worker:
+    image: equivalent/eb-demo-rails:v1
+    environment:
+      REL_DATABASE_HOST: 88.123.456.789
+      REL_DATABASE_PORT: 5432
+      # ..........
+      REDIS_HOST: 83.123.456.789
+      REDIS_PORT: 6379
+      # ..........
