@@ -1,6 +1,6 @@
 version: '2'
 services:
-  db:
+  db_dev:
     image: postgres:9.5.1
     environment:
       POSTGRES_PASSWORD: mysecretlocalpassword
@@ -11,7 +11,7 @@ services:
     volumes:
       - /var/www
       - /var/run
-  redis:
+  redis_dev:
     image: redis
   proxy:
     image: equivalent/eb-demo-nginx:v1
@@ -41,10 +41,10 @@ services:
       REL_DATABASE_PASSWORD: mysecretlocalpassword
       REL_DATABASE_USERNAME: postgres
       REL_DATABASE_DATABASE: puppies_app
-      REL_DATABASE_HOST: db
+      REL_DATABASE_HOST: db_dev
       REL_DATABASE_PORT: 5432
 
-      REDIS_HOST: redis
+      REDIS_HOST: redis_dev
       REDIS_PORT: 6379
       REDIS_DB_ID: 0
     volumes:
@@ -52,8 +52,8 @@ services:
     volumes_from:
       - sharedbox
     links:
-      - db
-      - redis
+      - db_dev
+      - redis_dev
   puppies_bg_worker:
     image: puppies_app_development
     environment:
@@ -65,7 +65,7 @@ services:
     volumes_from:
       - sharedbox
     links:
-      - db
-      - redis
+      - db_dev
+      - redis_dev
     depends_on:
       - puppies_web

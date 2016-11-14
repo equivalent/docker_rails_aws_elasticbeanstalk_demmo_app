@@ -12,8 +12,8 @@ Clone this repo and `cd` into it:
 
 `$ git clone git@github.com:equivalent/docker_rails_aws_elasticbeanstalk_demmo_app.git &&  cd docker_rails_aws_elasticbeanstalk_demmo_app`
 
-Once the application is running and is successfully connected to DB be sure to run `rake db:seed`.
-
+Once the application is running and is successfully connected to DB be sure to
+run `rake db:seed` inside the container (visit [how to run stuff in Docker container](https://github.com/equivalent/docker_rails_aws_elasticbeanstalk_demmo_app#how-to-debug-app-in-docker-containers))
 
 ### Running production application locally
 
