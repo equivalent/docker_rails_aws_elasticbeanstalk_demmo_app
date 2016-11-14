@@ -1,0 +1,71 @@
+version: '2'
+services:
+  db:
+    image: postgres:9.5.1
+    environment:
+      POSTGRES_PASSWORD: mysecretlocalpassword
+      POSTGRES_USER: postgres
+      POSTGRES_DB: puppies_app
+  sharedbox:
+    image: busybox
+    volumes:
+      - /var/www
+      - /var/run
+  redis:
+    image: redis
+  proxy:
+    image: equivalent/eb-demo-nginx:v1
+    build:
+      context: ./nginx
+      dockerfile: Dockerfile # we mean the ./nginx/Dockerfile
+    volumes:
+      - ./logs:/var/log
+    volumes_from:
+      - sharedbox
+    ports:
+      - "80:80"
+    depends_on:
+      - puppies_web
+  puppies_web:
+    image: puppies_app_development
+    build:
+      context: ./puppies
+      dockerfile: Dockerfile.development
+    environment: &app_server_enviroment_vars
+      CONTAINER_ROLE: 'app_server'
+      RAILS_ENV: production
+      MAX_THREADS: 2
+      WEB_CONCURRENCY: 1
+      SECRET_KEY_BASE: 19d07059ab81ff584bd8fd7be03ed765c63f5f4c3518d05f39b41c7152134e294b2f09cbf5d925045caab0ef6475862fc42c8e6b35d63e353a1472057e90f8c4
+
+      REL_DATABASE_PASSWORD: mysecretlocalpassword
+      REL_DATABASE_USERNAME: postgres
+      REL_DATABASE_DATABASE: puppies_app
+      REL_DATABASE_HOST: db
+      REL_DATABASE_PORT: 5432
+
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
+      REDIS_DB_ID: 0
+    volumes:
+      - ./logs:/app/log
+    volumes_from:
+      - sharedbox
+    links:
+      - db
+      - redis
+  puppies_bg_worker:
+    image: puppies_app_development
+    environment:
+      <<: *app_server_enviroment_vars
+      CONTAINER_ROLE: 'bg_worker'
+      MAX_THREADS: 5  # Sidekiq threads,  watch out so you don't run out of DB connection pool
+    volumes:
+      - ./logs:/app/log
+    volumes_from:
+      - sharedbox
+    links:
+      - db
+      - redis
+    depends_on:
+      - puppies_web
