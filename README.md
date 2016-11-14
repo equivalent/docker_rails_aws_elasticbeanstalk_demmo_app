@@ -1,19 +1,25 @@
 # AWS ElasticBeanstalk Ruby on Rails Docker
 
+This is a Demo application related to the talk
+[AWS Elastic Beanstalk & Docker for Rails developers](http://www.eq8.eu/talks/2-aws-elastic-beanstalk-and-docker-for-rails-developers)
+
 Pre-built application (puppies app) Docker images:
 
 * https://hub.docker.com/r/equivalent/eb-demo-rails/
 * https://hub.docker.com/r/equivalent/eb-demo-nginx/
 
-
 ## Usage
 
 Clone this repo and `cd` into it:
 
-`$ git clone git@github.com:equivalent/docker_rails_aws_elasticbeanstalk_demmo_app.git &&  cd docker_rails_aws_elasticbeanstalk_demmo_app`
+```sh
+$ git clone git@github.com:equivalent/docker_rails_aws_elasticbeanstalk_demmo_app.git
+$ cd docker_rails_aws_elasticbeanstalk_demmo_app
+```
 
 Once the application is running and is successfully connected to DB be sure to
-run `rake db:seed` inside the container (visit [how to run stuff in Docker container](https://github.com/equivalent/docker_rails_aws_elasticbeanstalk_demmo_app#how-to-debug-app-in-docker-containers))
+run `rake db:seed` inside the container. You can leart out how to run commands
+inside Docker container [here](https://github.com/equivalent/docker_rails_aws_elasticbeanstalk_demmo_app#how-to-debug-app-in-docker-containers).
 
 ### Running production application locally
 
@@ -25,15 +31,15 @@ to run in **production** mode, all you need to do:
 1.  [install Docker](https://docs.docker.com/engine/installation/) and [docker-compose](https://docs.docker.com/compose/install/)
 2. `$ docker-compose up` or `$ sudo docker-compose up`
 
-##### Running production application locally (development mode)
+##### Running application locally (development mode)
 
 `docker-compose -f docker-compose-development.yml up`
 
 ### Running production application on AWS Elastic Beanstalk
 
-Elastic Beanstalk's `Dockerrun.aws.json` is located in `./aws_elastic_beanstalk` of this repo. In that
-folder is separate [README.md](https://github.com/equivalent/docker_rails_aws_elasticbeanstalk_demmo_app/blob/master/aws_elastic_beanstalk/README.md) file containing useful
-information on AWS Elastic Beanstalk CLI
+Elastic Beanstalk's `Dockerrun.aws.json` is located in `./aws_elastic_beanstalk`.
+
+ In that folder is separate [README.md](https://github.com/equivalent/docker_rails_aws_elasticbeanstalk_demmo_app/blob/master/aws_elastic_beanstalk/README.md) file containing useful information on AWS Elastic Beanstalk CLI
 
 ##### Steps to lunch "puppies" demo application in AWS Elastic Beanstalk:
 
@@ -55,7 +61,7 @@ EB CLI. You can find my instructions on EB CLI [here](https://github.com/equival
 
 **Step 3:** `$ cd ./aws_elastic_beanstalk` and `$ eb deploy`
 
-## How to debug app in Docker containers
+## How lunch stuff / debug app inside the Docker containers
 
 From host machine you can lunch:
 
