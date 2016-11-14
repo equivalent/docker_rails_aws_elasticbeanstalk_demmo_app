@@ -61,6 +61,11 @@ EB CLI. You can find my instructions on EB CLI [here](https://github.com/equival
 
 **Step 3:** `$ cd ./aws_elastic_beanstalk` and `$ eb deploy`
 
+## Nginx proxy container
+
+Nginx image source code located in `./nginx` folder.
+
+
 ## How lunch stuff / debug app inside the Docker containers
 
 From host machine you can lunch:
@@ -78,6 +83,13 @@ Or manually type:
 ```sh
 docker ps
 docker exec -it xxIdOfAContainerxx  bash
+```
+
+## How to Build Docker image and how to push a change to Docker registry
+
+```sh
+docker-compose build
+docker-compose push
 ```
 
 ## Other Resources
