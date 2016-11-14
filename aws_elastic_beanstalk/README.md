@@ -6,9 +6,10 @@ I recommend  to create a new AWS EB application via Web interface as
 described in this article: http://www.eq8.eu/blogs/34-set-up-aws-elastic-beanstalk
 and only then use this app
 
-### how to install
+### how to install && configure
 
-http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
+* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
+* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html
 
 ```
 # pip is python package manager
@@ -47,7 +48,8 @@ Multi-container Docker
 
 ### Usage
 
-In all examples I expect that you've `cd` the folder where is this README.md file
+In all examples I expect that you've `cd` to the folder where  this README.md file
+is located.
 
 ```sh
 cd docker_rails_aws_elasticbeanstalk_demmo_app/aws_elastic_beanstalk/
