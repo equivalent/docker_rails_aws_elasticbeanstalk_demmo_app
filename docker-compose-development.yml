@@ -14,7 +14,7 @@ services:
   redis_dev:
     image: redis
   proxy:
-    image: equivalent/eb-demo-nginx:v1
+    image: puppies_nginx_development
     build:
       context: ./nginx
       dockerfile: Dockerfile # we mean the ./nginx/Dockerfile
