@@ -3,6 +3,8 @@
 This is a Demo application related to the talk
 [AWS Elastic Beanstalk & Docker for Rails developers](http://www.eq8.eu/talks/2-aws-elastic-beanstalk-and-docker-for-rails-developers)
 
+>>>>[Talk Video](https://skillsmatter.com/skillscasts/9280-aws-elastic-beanstalk-and-docker-for-rails-developers)<<<<
+
 Pre-built application (puppies app) Docker images:
 
 * https://hub.docker.com/r/equivalent/eb-demo-rails/
