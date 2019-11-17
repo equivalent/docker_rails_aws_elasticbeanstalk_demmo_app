@@ -1,21 +1,19 @@
 # EB CLI
 
+Since 2019 the instalation process of AWS EB CLI has changed ([source](https://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html))
+
+In ordrer to install the CLI you need to clone and run this repo: https://github.com/aws/aws-elastic-beanstalk-cli-setup
+
+
 http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3.html
 
 I recommend  to create a new AWS EB application via Web interface as
 described in this article: http://www.eq8.eu/blogs/34-set-up-aws-elastic-beanstalk
 and only then use this app
 
-### how to install && configure
-
-* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
-* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html
+### how to onfigure
 
 ```
-# pip is python package manager
-
-pip install --upgrade --user awsebcli   # install eb cli
-
 eb init   # set up your login and region
           # Go to AWS Identity and Access Management (IAM) product and
           # create a new user => that will generete credentials (secret
@@ -74,4 +72,22 @@ Given you have the Puppies.pem in your `~/.ssh/` folder
 
 ```sh
 eb ssh
+```
+
+
+
+--------------
+
+# Old instructions
+
+
+### how to install (old not working)
+
+* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-install.html
+* http://docs.aws.amazon.com/elasticbeanstalk/latest/dg/eb-cli3-configuration.html
+
+```
+# pip is python package manager
+
+pip install --upgrade --user awsebcli   # install eb cli
 ```
